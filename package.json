@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/tugberkugurlu/gulp-aspnet-k",
   "dependencies": {
-    "gulp-shell": "^0.2.9",
+    "gulp-shell": "git://github.com/tugberkugurlu/gulp-shell.git#options-env",
     "gulp-util": "^3.0.1",
     "lodash": "^2.4.1"
   }

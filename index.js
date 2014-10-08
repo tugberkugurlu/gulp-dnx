@@ -16,7 +16,7 @@ function kRunner(options) {
 		'k ' + options.kCommand
 	];
 
-	return shell.task(commands);
+	return shell.task(commands, { env: process.env });
 }
 
 module.exports = kRunner;
