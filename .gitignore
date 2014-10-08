@@ -26,3 +26,14 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+
+# bower stuff
+bower_components
+
+# gulp stuff
+example/assets
+
+# ASP.NET vNext
+bin
+packages
+artifacts
