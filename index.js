@@ -1,25 +1,22 @@
 var _ = require('lodash'),
-	through = require('through2'),
-	async = require('async'),
-	exec = require('child_process').exec,
-	gutil = require('gulp-util'),
-	path = require('path');
+	shell = require('gulp-shell'),
+	gutil = require('gulp-util');
 
 var PLUGIN_NAME = 'aspnet-k';
 
-function kpmBuild() {
-	
-	var projectRoot = process.cwd(),
-		stream = through.obj(function (file, unused, done) {
-			var self = this;
-			console.log(file.path);
-			self.push(file);
-			done();
-		});
+function kRunner(options) {
 
-	stream.resume();
+	options = _.extend({
+		kCommand: 'web'
+	}, options);
 
-	return stream;
+	var commands = [
+		'kpm restore',
+		'kpm build',
+		'k ' + options.kCommand
+	];
+
+	return shell.task(commands);
 }
 
-module.exports = kpmBuild;
+module.exports = kRunner;

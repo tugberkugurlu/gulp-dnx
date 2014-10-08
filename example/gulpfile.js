@@ -10,10 +10,11 @@ var gulp = require('gulp'),
     order = require('gulp-order'),
     gutil = require('gulp-util'),
     ini = require('ini'),
+    runSequence = require('run-sequence'),
 	aspnetk = require("../");
 
-gulp.task('default', ['clean'], function(cb) {
-	return gulp.start('fonts', 'scripts', 'styles');
+gulp.task('default', function(cb) {
+	return runSequence('clean', ['fonts', 'scripts', 'styles'], 'aspnet-run', cb);
 });
 
 gulp.task('clean', function(cb) {
@@ -42,7 +43,6 @@ gulp.task('scripts', function() {
     
     return gulp.src(fileList)
         .pipe(gulp.dest('assets/js'))
-        .pipe(aspnetk())
         .pipe(concat('script.js'))
         .pipe(gulp.dest('assets/js'))
         .pipe(rename({suffix: '.min'}))
@@ -70,3 +70,5 @@ gulp.task('styles', function() {
         .pipe(minifycss())
         .pipe(gulp.dest('assets/css'));
 });
+
+gulp.task('aspnet-run', aspnetk());
