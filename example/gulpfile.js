@@ -13,8 +13,24 @@ var gulp = require('gulp'),
     runSequence = require('run-sequence'),
 	aspnetk = require("../");
 
+var paths = {
+    
+    scripts: [
+        'bower_components/jquery/dist/jquery.js',
+        'bower_components/bootstrap/dist/js/bootstrap.js',
+    
+        'client/js/*.js'
+    ],
+    
+    styles: [
+        'client/less/bootstrap.less',
+        'client/less/main.less',
+        'bower_components/fontawesome/css/font-awesome.css'
+    ]
+};
+
 gulp.task('default', function(cb) {
-	return runSequence('clean', ['fonts', 'scripts', 'styles'], 'aspnet-run', cb);
+	return runSequence('clean', ['fonts', 'scripts', 'styles'], ['watch', 'aspnet-run'], cb);
 });
 
 gulp.task('clean', function(cb) {
@@ -34,14 +50,7 @@ gulp.task('fonts', function() {
 
 gulp.task('scripts', function() {
     
-    var fileList = [
-        'bower_components/jquery/dist/jquery.js',
-        'bower_components/bootstrap/dist/js/bootstrap.js',
-
-        'client/js/*.js'
-    ];
-    
-    return gulp.src(fileList)
+    return gulp.src(paths.scripts)
         .pipe(gulp.dest('assets/js'))
         .pipe(concat('script.js'))
         .pipe(gulp.dest('assets/js'))
@@ -53,13 +62,7 @@ gulp.task('scripts', function() {
 
 gulp.task('styles', function() {
     
-    var fileList = [
-        'client/less/bootstrap.less',
-        'client/less/main.less',
-        'bower_components/fontawesome/css/font-awesome.css'
-    ];
-    
-    return gulp.src(fileList)
+    return gulp.src(paths.styles)
         .pipe(gulpif(/[.]less$/, less()))
         .pipe(gulp.dest('assets/css'))
         .pipe(order(['**/bootstrap.css', '**/font-awesome.css', '**/main.css']))
@@ -69,6 +72,11 @@ gulp.task('styles', function() {
         .pipe(gitshasuffix({ length: 40, separator: "-" }))
         .pipe(minifycss())
         .pipe(gulp.dest('assets/css'));
+});
+
+gulp.task('watch', function() {
+    gulp.watch(paths.scripts, ['scripts']);
+    gulp.watch(paths.styles, ['styles']);
 });
 
 gulp.task('aspnet-run', aspnetk());

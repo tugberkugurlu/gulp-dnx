@@ -8,7 +8,7 @@ namespace GulpExample
         {
 			app.UseFileServer();
 			app.UseErrorPage();
-            app.UseWelcomePage();
+            app.UseWelcomePage();   
         }
     }
 }
