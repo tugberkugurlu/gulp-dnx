@@ -11,9 +11,9 @@ function kRunner(options) {
 	}, options);
 
 	var commands = [
-		'kpm restore',
-		'kpm build',
-		'k ' + options.kCommand
+		// 'kpm restore',
+		// 'kpm build',
+        '@powershell -NoProfile -ExecutionPolicy unrestricted -Command "for(;;) { Write-Output \"Starting...\"; k --watch ' + options.kCommand + ' }"'
 	];
 
 	return shell.task(commands, { env: process.env });
