@@ -1,24 +1,24 @@
 var _ = require('lodash'),
-	shell = require('gulp-shell'),
-	gutil = require('gulp-util');
+  shell = require('gulp-shell'),
+  gutil = require('gulp-util');
 
 var PLUGIN_NAME = 'aspnet-k';
 
 function kRunner(options) {
 
-		options = _.extend({
-	        restore: true,
-	        build: false,
-	        run: true,
-	        kCommand: 'web',
-					cwd: './'
-		}, options);
+    options = _.extend({
+          restore: true,
+          build: false,
+          run: true,
+          kCommand: 'web',
+          cwd: './'
+    }, options);
 
     if(options.restore == false && options.build == false && options.run == false) {
         throw new gutil.PluginError(PLUGIN_NAME, 'No action has been specified')
     }
 
-		var commands = [];
+    var commands = [];
 
     if(options.restore === true) {
         commands.push('kpm restore');
@@ -32,7 +32,7 @@ function kRunner(options) {
         commands.push('@powershell -NoProfile -ExecutionPolicy unrestricted -Command "for(;;) { Write-Output \"Starting...\"; k --watch ' + options.kCommand + ' }"');
     }
 
-		return shell.task(commands, { env: process.env, cwd: options.cwd });
+    return shell.task(commands, { env: process.env, cwd: options.cwd });
 }
 
 kRunner.build = function(cwd) {
@@ -40,7 +40,7 @@ kRunner.build = function(cwd) {
         build: true,
         restore: false,
         run: false,
-				cwd: cwd
+        cwd: cwd
     });
 }
 
@@ -49,7 +49,7 @@ kRunner.restore = function(cwd) {
         restore: true,
         build: false,
         run: false,
-				cwd: cwd
+        cwd: cwd
     });
 }
 
@@ -58,7 +58,7 @@ kRunner.restoreBuild = function(cwd) {
         restore: true,
         build: true,
         run: false,
-				cwd: cwd
+        cwd: cwd
     });
 }
 
