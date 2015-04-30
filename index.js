@@ -21,15 +21,15 @@ function kRunner(options) {
     var commands = [];
 
     if(options.restore === true) {
-        commands.push('kpm restore');
+        commands.push('dnu restore');
     }
 
     if(options.build === true) {
-        commands.push('kpm build');
+        commands.push('dnu build');
     }
 
     if(options.run === true) {
-        commands.push('@powershell -NoProfile -ExecutionPolicy unrestricted -Command "for(;;) { Write-Output \"Starting...\"; k --watch ' + options.kCommand + ' }"');
+        commands.push('@powershell -NoProfile -ExecutionPolicy unrestricted -Command "for(;;) { Write-Output \"Starting...\"; dnx --watch . ' + options.kCommand + ' }"');
     }
 
     return shell.task(commands, { env: process.env, cwd: options.cwd });
