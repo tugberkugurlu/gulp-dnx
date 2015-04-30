@@ -1,6 +1,6 @@
 {
   "name": "gulp-aspnet-k",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Gulp plugin for ASP.NET vNext",
   "main": "index.js",
   "scripts": {
