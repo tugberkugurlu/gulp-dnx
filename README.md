@@ -1,7 +1,7 @@
 gulp-aspnet-k
 =============
 
-Gulp plugin for ASP.NET vNext. You can use this plugin to integrate ASP.NET vNext build, package restore and run available commands inside you project.json file.
+Gulp plugin for ASP.NET 5. You can use this plugin to integrate ASP.NET 5 `dnu build`, `dnu restore` and `dnx` command execution (for the commands available inside you project.json file). Check out the [example](/example/) inside the repository.
 
 ## Installation
 
