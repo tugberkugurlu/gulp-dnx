@@ -2,64 +2,70 @@ var _ = require('lodash'),
   shell = require('gulp-shell'),
   gutil = require('gulp-util');
 
-var PLUGIN_NAME = 'aspnet-k';
+var PLUGIN_NAME = 'aspnet-dnx';
 
-function kRunner(options) {
+function dnxRunner(options) {
 
-    options = _.extend({
-          restore: true,
-          build: false,
-          run: true,
-          kCommand: 'web',
-          cwd: './'
-    }, options);
+  options = _.extend({
+    restore: true,
+    build: false,
+    run: true,
+    cwd: './'
+  }, options);
 
-    if(options.restore == false && options.build == false && options.run == false) {
-        throw new gutil.PluginError(PLUGIN_NAME, 'No action has been specified')
-    }
+  if (!options.dnxCommand) {
+    throw new gutil.PluginError(PLUGIN_NAME, 'Please specify the dnx command to run. Example: {dnxCommand: "kestrel"}');
+  }
 
-    var commands = [];
+  if (!options.restore && !options.build && !options.run) {
+    throw new gutil.PluginError(PLUGIN_NAME, 'No action has been specified');
+  }
 
-    if(options.restore === true) {
-        commands.push('dnu restore');
-    }
+  var commands = [];
 
-    if(options.build === true) {
-        commands.push('dnu build');
-    }
+  if (options.restore === true) {
+    commands.push('dnu restore');
+  }
 
-    if(options.run === true) {
-        commands.push('@powershell -NoProfile -ExecutionPolicy unrestricted -Command "for(;;) { Write-Output \"Starting...\"; dnx --watch . ' + options.kCommand + ' }"');
-    }
+  if (options.build === true) {
+    commands.push('dnu build');
+  }
 
-    return shell.task(commands, { env: process.env, cwd: options.cwd });
+  if (options.run === true) {
+    commands.push('@powershell -NoProfile -ExecutionPolicy unrestricted -Command "for(;;) { Write-Output \"Starting...\"; dnx --watch . ' + options.dnxCommand + ' }"');
+  }
+
+  return shell.task(commands, {
+    env: process.env,
+    cwd: options.cwd
+  });
 }
 
-kRunner.build = function(cwd) {
-    return kRunner({
-        build: true,
-        restore: false,
-        run: false,
-        cwd: cwd
-    });
-}
+dnxRunner.build = function(cwd) {
+  return dnxRunner({
+    build: true,
+    restore: false,
+    run: false,
+    cwd: cwd
+  });
+};
 
-kRunner.restore = function(cwd) {
-    return kRunner({
-        restore: true,
-        build: false,
-        run: false,
-        cwd: cwd
-    });
-}
+dnxRunner.restore = function(cwd) {
+  return dnxRunner({
+    restore: true,
+    build: false,
+    run: false,
+    cwd: cwd
+  });
+};
 
-kRunner.restoreBuild = function(cwd) {
-    return kRunner({
-        restore: true,
-        build: true,
-        run: false,
-        cwd: cwd
-    });
-}
+dnxRunner.restoreBuild = function(cwd) {
+  return dnxRunner({
+    restore: true,
+    build: true,
+    run: false,
+    cwd: cwd
+  });
+};
 
-module.exports = kRunner;
+module.exports = dnxRunner;
