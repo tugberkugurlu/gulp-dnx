@@ -1,5 +1,5 @@
 {
-  "name": "gulp-aspnet-dnx",
+  "name": "gulp-dnx",
   "version": "0.0.5",
   "description": "Gulp plugin for ASP.NET vNext",
   "main": "index.js",
@@ -8,20 +8,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/tugberkugurlu/gulp-aspnet-dnx.git"
+    "url": "git://github.com/tugberkugurlu/gulp-dnx.git"
   },
   "keywords": [
     "aspnet",
     "aspnetvnext",
     "dotnet",
+    "dnx"
     "gulp"
   ],
   "author": "Tugberk Ugurlu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tugberkugurlu/gulp-aspnet-dnx/issues"
+    "url": "https://github.com/tugberkugurlu/gulp-dnx/issues"
   },
-  "homepage": "https://github.com/tugberkugurlu/gulp-aspnet-dnx",
+  "homepage": "https://github.com/tugberkugurlu/gulp-dnx",
   "dependencies": {
     "gulp-shell": "git://github.com/tugberkugurlu/gulp-shell.git#options-env",
     "gulp-util": "^3.0.1",

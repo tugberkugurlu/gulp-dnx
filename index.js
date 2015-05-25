@@ -2,9 +2,12 @@ var _ = require('lodash'),
   shell = require('gulp-shell'),
   gutil = require('gulp-util');
 
-var PLUGIN_NAME = 'aspnet-dnx';
+var PLUGIN_NAME = 'dnx-dnx';
 
-function dnxRunner(options) {
+function dnxRunner(dnxCommand, options) {
+  if (!dnxCommand) {
+    throw new gutil.PluginError(PLUGIN_NAME, 'Please specify the dnx command to run.');
+  }
 
   options = _.extend({
     restore: true,
@@ -12,10 +15,6 @@ function dnxRunner(options) {
     run: true,
     cwd: './'
   }, options);
-
-  if (!options.dnxCommand) {
-    throw new gutil.PluginError(PLUGIN_NAME, 'Please specify the dnx command to run. Example: {dnxCommand: "kestrel"}');
-  }
 
   if (!options.restore && !options.build && !options.run) {
     throw new gutil.PluginError(PLUGIN_NAME, 'No action has been specified');
@@ -32,7 +31,7 @@ function dnxRunner(options) {
   }
 
   if (options.run === true) {
-    commands.push('@powershell -NoProfile -ExecutionPolicy unrestricted -Command "for(;;) { Write-Output \"Starting...\"; dnx --watch . ' + options.dnxCommand + ' }"');
+    commands.push('@powershell -NoProfile -ExecutionPolicy unrestricted -Command "for(;;) { Write-Output \"Starting...\"; dnx --watch . ' + dnxCommand + ' }"');
   }
 
   return shell.task(commands, {

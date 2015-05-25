@@ -30,7 +30,7 @@ var paths = {
 };
 
 gulp.task('default', function(cb) {
-  return runSequence('clean', ['fonts', 'scripts', 'styles'], ['watch', 'aspnet-run'], cb);
+  return runSequence('clean', ['fonts', 'scripts', 'styles'], ['watch', 'dnx-run'], cb);
 });
 
 gulp.task('clean', function(cb) {
@@ -89,10 +89,4 @@ gulp.task('watch', function() {
   gulp.watch(paths.styles, ['styles']);
 });
 
-gulp.task('aspnet-run', dnx({
-      restore: true,
-      build: false,
-      run: true,
-      kCommand: 'kestrel',
-      cwd: './'
-}));
+gulp.task('dnx-run', dnx('kestrel'));
