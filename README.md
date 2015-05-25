@@ -42,6 +42,7 @@ gulp.task('dnx-run', dnx(dnxCommand, options));
 There are also shorthand methods for specific tasks:
 
 ```javascript
+//runs the project.json's command 'kestrel'
 gulp.task('dnx-run', dnx('kestrel'));
 // only restores the packages
 gulp.task('dnu-restore', dnx.restore());
