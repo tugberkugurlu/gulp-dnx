@@ -2,7 +2,7 @@ var _ = require('lodash'),
   shell = require('gulp-shell'),
   gutil = require('gulp-util');
 
-var PLUGIN_NAME = 'dnx-dnx';
+var PLUGIN_NAME = 'dnx';
 
 function dnxRunner(dnxCommand, options) {
   if (!dnxCommand) {
