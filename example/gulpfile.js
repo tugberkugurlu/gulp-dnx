@@ -5,7 +5,6 @@ var gulp = require('gulp'),
   less = require('gulp-less'),
   del = require('del'),
   rename = require('gulp-rename'),
-  gitshasuffix = require('gulp-gitshasuffix'),
   gulpif = require('gulp-if'),
   order = require('gulp-order'),
   gutil = require('gulp-util'),
@@ -57,10 +56,6 @@ gulp.task('scripts', function() {
     .pipe(rename({
       suffix: '.min'
     }))
-    .pipe(gitshasuffix({
-      length: 40,
-      separator: "-"
-    }))
     .pipe(uglify())
     .pipe(gulp.dest('assets/js'));
 });
@@ -75,10 +70,6 @@ gulp.task('styles', function() {
     .pipe(gulp.dest('assets/css'))
     .pipe(rename({
       suffix: '.min'
-    }))
-    .pipe(gitshasuffix({
-      length: 40,
-      separator: "-"
     }))
     .pipe(minifycss())
     .pipe(gulp.dest('assets/css'));
