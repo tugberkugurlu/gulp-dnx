@@ -37,3 +37,4 @@ example/assets
 bin
 packages
 artifacts
+project.lock.json
