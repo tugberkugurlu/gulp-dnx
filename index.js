@@ -31,7 +31,7 @@ function dnxRunner(dnxCommand, options) {
   }
 
   if (options.run === true) {
-    commands.push('@powershell -NoProfile -ExecutionPolicy unrestricted -Command "for(;;) { Write-Output \"Starting...\"; dnx --watch . ' + dnxCommand + ' }"');
+    commands.push('@powershell -NoProfile -ExecutionPolicy unrestricted -Command "for(;;) { Write-Output \"Starting...\"; dnx --watch ' + dnxCommand + ' }"');
   }
 
   return shell.task(commands, {
